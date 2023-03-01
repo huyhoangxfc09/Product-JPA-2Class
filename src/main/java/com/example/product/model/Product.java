@@ -16,6 +16,7 @@ public class Product {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String imagePath;
+    @Size(min = 3, max = 20)
     private String name;
 
     private Double price;

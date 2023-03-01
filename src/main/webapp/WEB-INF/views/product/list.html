@@ -65,7 +65,8 @@
             <td><a class="btn btn-warning"
                    th:href="@{/products/update/{id}(id=${e.id})}">Update</a>
             </td>
-            <td><a class="btn btn-danger"
+            <td><a class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')"
+
                    th:href="@{/products/delete/{id}(id=${e.id})}">Delete</a>
             </td>
         </tr>

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -47,11 +48,36 @@ public class ProductController {
         modelAndView.addObject("create","create");
         return modelAndView;
     }
+//    @PostMapping("/create")
+//    private String createProduct(@Valid @ModelAttribute Product product,RedirectAttributes attributes){
+//        iProductService.save(product);
+//        attributes.addFlashAttribute("message", "Tạo mới thành công");
+//        return "redirect:/products";
+//    }
+
+//    @PostMapping("/create")
+//    private String createProduct(@Valid @ModelAttribute Product product,
+//                                 RedirectAttributes attributes,
+//                                 BindingResult bindingResult){
+//        if (bindingResult.hasErrors()){
+//            attributes.addFlashAttribute("product",product);
+//            attributes.addFlashAttribute("create","create");
+//            return "product/form";
+//        }
+//        iProductService.save(product);
+//        attributes.addFlashAttribute("message", "Tạo mới thành công");
+//        return "redirect:/products";
+//    }
     @PostMapping("/create")
-    private String createProduct(@ModelAttribute Product product, RedirectAttributes attributes){
+    private ModelAndView createProduct(@Valid @ModelAttribute Product product,
+                                 BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+          return new ModelAndView("product/form");
+        }
+        ModelAndView modelAndView = new ModelAndView("redirect:/products");
         iProductService.save(product);
-        attributes.addFlashAttribute("message","Tạo mới thành công");
-        return "redirect:/products";
+        modelAndView.addObject("message", "Tạo mới thành công");
+        return modelAndView;
     }
     @GetMapping("/update/{id}")
     private ModelAndView updateForm(@PathVariable("id")Long id){

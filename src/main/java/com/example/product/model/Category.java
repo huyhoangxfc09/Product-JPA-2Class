@@ -13,7 +13,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 3, message = "Cút")
+    @Size(min = 3)
     private String name;
     @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
     private List<Product> products;
@@ -21,7 +21,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(Long id, String name) {
+    public Category(Long id, @Size(min = 3, message = "Cút") String name) {
         this.id = id;
         this.name = name;
     }

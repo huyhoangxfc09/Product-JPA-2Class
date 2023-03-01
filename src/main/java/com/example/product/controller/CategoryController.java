@@ -59,17 +59,17 @@ public class CategoryController {
 //        return "redirect:/categories";
 //    }
         @PostMapping("/create")
-        private String createCategory(@Valid @ModelAttribute Category category,
-                                      RedirectAttributes attributes,
-                                      BindingResult bindingResult){
-           if (bindingResult.hasErrors()){
-               return "category/form";
-           }else {
-               iCategoryService.save(category);
-               attributes.addFlashAttribute("message","Tạo mới thành công");
-               return "redirect:/categories";
-           }
+        private ModelAndView createCategory(@Validated @ModelAttribute Category category,
+                                            BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView("category/list");
+             if (bindingResult.hasErrors()){
+                 return new ModelAndView("category/form");
+             }else {
 
+             }
+             iCategoryService.save(category);
+             modelAndView.addObject("message","Tạo mới thành công");
+             return modelAndView;
     }
 
     @GetMapping("/update/{id}")
